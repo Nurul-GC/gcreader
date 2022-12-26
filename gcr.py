@@ -21,7 +21,7 @@ def initwindow():
         janela.close()
         app.ferramentas.show()
 
-    img = QPixmap("favicon/icon.png")
+    img = QPixmap("favicon/init.png")
     align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
     janela = QSplashScreen(img)
     janela.setStyleSheet(tema)
@@ -50,6 +50,10 @@ class GCR:
         menu_ferramentas = QMenuBar()
         opcoes = menu_ferramentas.addMenu("Opções")
 
+        abrir = opcoes.addAction("Abrir")
+        abrir.triggered.connect(self.pdfopen)
+        opcoes.addSeparator()
+
         instr = opcoes.addAction("Instruções")
         instr.triggered.connect(self._instr)
         opcoes.addSeparator()
@@ -69,6 +73,8 @@ class GCR:
         self.tabset = QTabWidget()
         self.tabset.setTabBarAutoHide(True)
         self.tabset.setDocumentMode(True)
+        self.tabset.setTabsClosable(True)
+        self.tabset.tabCloseRequested.connect(self.fechar)
         centrallayout.addWidget(self.tabset)
 
         def browser():
@@ -78,7 +84,7 @@ class GCR:
         labelcopyright.setAlignment(Qt.AlignmentFlag.AlignCenter)
         labelcopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
         labelcopyright.setStyleSheet(
-            "background-color: cadetblue;"
+            "background-color: gray;"
             "border-radius: 5px;"
             "padding: 5px;"
         )
@@ -119,7 +125,10 @@ class GCR:
     def _instr(self):
         QMessageBox.information(self.ferramentas, "Instruções",
                                 "<b>Breve Apresentação</b><hr>"
-                                "<p></p>"
+                                "<p>GCreader é um simples leitor de PDFs, prático, leve e eficiente!<br>"
+                                "É possivel abri-lo directamente apartir de um ficheiro PDF no explorador ou chama-lo "
+                                "pelo executavel no menu iniciar ou ainda localizar o icone no ambiente de "
+                                "trabalho.</p> "
                                 "<p>Obrigado pelo seu suporte!<br>"
                                 "<b>&trade;ArtesGC, Inc.</b></p>")
 
@@ -146,12 +155,19 @@ class GCR:
         pdfilename = QFileDialog.getOpenFileName(
                 self.ferramentas,
                 caption="Choose the PDF file",
-                filter="Cxx Files (*.pdf)"
+                filter="PDF Files (*.pdf)"
         )[0]
-        self.pdfviewer(pdfilename)
+        if pdfilename.isspace() or pdfilename == "":
+            QMessageBox.warning(self.ferramentas, "Falha ao carregar ficheiro",
+                                "Lamento, ficheiro não encontrado ou processo de procura cancelado!")
+        else:
+            self.pdfviewer(pdfilename)
 
     def fechar(self):
-        self.tabset.removeTab(self.tabset.currentIndex())
+        if self.tabset.currentIndex() == 0:
+            pass
+        else:
+            self.tabset.removeTab(self.tabset.currentIndex())
 
 
 if __name__ == '__main__':
