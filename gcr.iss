@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "gcreader"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2"
 #define MyAppPublisher "ArtesGC, Inc."
 #define MyAppURL "https://github.com/Nurul-GC/gcreader"
 #define MyAppExeName "gcreader.exe"
@@ -16,14 +16,14 @@
 AppId={{48BD8D7D-AE78-4777-9D55-E3BBC969A739}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName}-{#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 VersionInfoCompany={#MyAppPublisher}
-VersionInfoCopyright=(c)2022 Nurul-GC
+VersionInfoCopyright=(c) 2022 Nurul-GC
 VersionInfoDescription=um simples leitor de pdf
 VersionInfoOriginalFileName={#MyAppName}
 VersionInfoProductName={#MyAppName}
