@@ -21,7 +21,7 @@ def initwindow():
         janela.close()
         app.ferramentas.show()
 
-    img = QPixmap("favicon/init.png")
+    img = QPixmap(path.abspath("favicon/favicon-512x512.png"))
     align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
     janela = QSplashScreen(img)
     janela.setStyleSheet(tema)
@@ -34,7 +34,7 @@ class GCR:
         # criando a instancia principal do programa
         self.gc = QApplication(argv)
 
-        QFontDatabase.addApplicationFont("font/copse.ttf")
+        QFontDatabase.addApplicationFont(path.abspath("font/copse.ttf"))
 
         # criando a instancia de leitura do ficheiro pdf
         self.pdfile = QPdfDocument(self.gc)
@@ -42,7 +42,7 @@ class GCR:
         # criando a instancia da janela do programa e seu tamanho
         self.ferramentas = QMainWindow()
         self.ferramentas.setMinimumSize(900, 500)
-        self.ferramentas.setWindowIcon(QIcon("favicon/init.png"))
+        self.ferramentas.setWindowIcon(QIcon(path.abspath("favicon/favicon-192x192.png")))
         self.ferramentas.setWindowTitle("gcreader - PDF reader")
         self.ferramentas.setStyleSheet(tema)
 
@@ -118,7 +118,7 @@ class GCR:
         QMessageBox.information(self.ferramentas,  "Sobre",
                                 "<b>Informações sobre o Programa</b><hr>"
                                 "<p><ul><li><b>Nome:</b> GCreader</li>"
-                                "<li><b>Versão:</b> 0.1-122022</li>"
+                                "<li><b>Versão:</b> 0.2-122022</li>"
                                 "<li><b>Programador:</b> &copy;Nurul-GC</li>"
                                 "<li><b>Empresa:</b> &trade;ArtesGC, Inc.</li></ul></p>")
 
@@ -171,7 +171,7 @@ class GCR:
 
 
 if __name__ == '__main__':
-    tema = open("theme/gcr.qss").read().strip()
+    tema = open(path.abspath("theme/gcr.qss")).read().strip()
     app = GCR()
 
     if len(argv) >= 2:
